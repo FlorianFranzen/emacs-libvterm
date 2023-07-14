@@ -135,7 +135,8 @@ the executable."
 ;; If the vterm-module is not compiled yet, compile it
 (unless (require 'vterm-module nil t)
   (if (or vterm-always-compile-module
-          (y-or-n-p "Vterm needs `vterm-module' to work.  Compile it now? "))
+          (and (not noninteractive)
+               (y-or-n-p "Vterm needs `vterm-module' to work.  Compile it now? ")))
       (progn
         (vterm-module-compile)
         (require 'vterm-module))
